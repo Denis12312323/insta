@@ -1,0 +1,9 @@
+.CommentRoot{
+    display: flex;
+    align-items: center;
+}
+.CommentName{
+    font-size: 14px;
+    font-weight: 500;
+    margin-right: 5px;
+}

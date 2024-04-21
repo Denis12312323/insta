@@ -1,0 +1,59 @@
+.PostCardRoot {
+    display: flex;
+    flex-direction: column;
+    width: 600px;
+    border: 1px solid #dbdbdb;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0 .2);
+}
+
+.PostCardHeader {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    height: 60px;
+    padding-left: 20px;
+    background-color: #fff;
+}
+
+.PostCardImage {
+    height: 100%;
+    width: 100%;
+
+}
+
+
+.PostCardBtns {
+    display: flex;
+    padding: 10px;
+    gap: 10px;
+}
+.PostCardBtns i{
+    cursor: pointer;
+}
+.PostCardLikes {
+    font-size: 14px;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.PostCardComments{
+    display: flex;
+    flex-direction: column;
+    padding: 0 10px 10px 10px;
+}
+
+.PostCardTextarea {
+    border: 0;
+    background-color: #fff;
+    outline: none;
+    padding: 10px;
+    resize: none;
+}
+
+
+.postCardCommTittle{
+    font-size: 14px;
+    color: #5f5f5f;
+    cursor: pointer;
+}
