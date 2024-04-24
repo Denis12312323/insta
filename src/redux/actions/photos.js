@@ -1,5 +1,6 @@
 import { api } from "../../api"
-import { getPhotosStarted, getPhotosSuccess, getPhotosFailed, setPhotosTotal } from "../actionCreators/photos"
+import { getPhotoFromState, getUpdatedPhotoForState } from "../../utils"
+import { getPhotosStarted, getPhotosSuccess, getPhotosFailed, setPhotosTotal, mutatePhotoSuccess, mutatePhotoFailed, mutatePhotoStarted } from "../actionCreators/photos"
 
 
 export const getPhotos = (page = 1) => {
@@ -9,7 +10,7 @@ export const getPhotos = (page = 1) => {
             if (page === 1) {
                 dispatch(getPhotosStarted())
             }
-            
+
             const response = await api.photos.getPhotos({
                 params: {
                     _page: page,
@@ -29,3 +30,65 @@ export const getPhotos = (page = 1) => {
         }
     }
 }
+
+
+export const toggleLike = (userId, photoId) => {
+    return async (dispatch, getState) => {
+
+        const state = getState();
+
+        const newPhoto = getPhotoFromState(state.photos.photos, photoId)
+
+        if (newPhoto.likes.includes(userId)) {
+            newPhoto.likes = newPhoto.likes.filter(like => like !== userId)
+        } else {
+            newPhoto.likes.push(userId)
+        }
+
+
+
+        try {
+
+            const response = await api.photos.mutatePhoto({
+                data: newPhoto,
+                url: `/${photoId}`
+            })
+
+            const newPhotos = getUpdatedPhotoForState(state.photos.photos, photoId, response.data)
+
+
+            dispatch(getPhotosSuccess(newPhotos))
+            
+        } catch (error) {
+            dispatch(mutatePhotoFailed(error))
+        }
+    }
+}
+
+
+
+
+export const sendComment = (nickname, photoId, text) => {
+    return async (dispatch, getState) => {
+        dispatch(mutatePhotoStarted());
+        const state = getState();
+
+        const newPhoto = getPhotoFromState(state.photos.photos, photoId);
+
+        newPhoto.comments.push({ nickname, text });
+
+        try {
+            const response = await api.photos.mutatePhoto({
+                data: newPhoto,
+                url: `/${photoId}`,
+            });
+
+            const newPhotos = getUpdatedPhotoForState(state.photos.photos, photoId, response.data);
+
+            dispatch(getPhotosSuccess(newPhotos));
+            dispatch(mutatePhotoSuccess());
+        } catch (error) {
+            dispatch(mutatePhotoFailed(error));
+        }
+    };
+};

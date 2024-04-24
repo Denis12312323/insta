@@ -1,0 +1,33 @@
+.UserBioRoot{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.UserBioAvatar{
+    height: 150px;
+    width: 150px;
+    border-radius: 50%;
+    margin-right: 35px;
+}
+.UserBioInfo{
+    display: flex;
+    flex-direction: column;
+}
+.UserBioRow{
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+.UserBioNick{
+    font-weight: 600;
+    font-size: 27px;
+    margin-right: 10px;
+}
+.UserBioCounter{
+    margin-right: 10px;
+}
+
+.UserBioNick{
+    font-weight: 600;
+}

@@ -6,9 +6,18 @@ import { nanoid } from 'nanoid';
 import './style.css';
 
 
-const PostCard = ({ userName, avatarUrl, userId, imgUrl, likes, isLikeByYou, comments, className }) => {
+const PostCard = ({ userName, avatarUrl, userId, imgUrl, likes, isLikeByYou, comments, className, onLikeClick, id, onCommentSendClick, mutateLoading, }) => {
 
     const [isCommentsShown, setIsCommentsShown] = useState(false)
+    const [comment, setComment] = useState('')
+
+
+    const handleSendCommentClick = () => {
+        if (comment) {
+            onCommentSendClick(id, comment)
+            setComment('')
+        }
+    }
 
     const renderComments = () => {
         if (comments.length > 2 && !isCommentsShown) {
@@ -36,7 +45,7 @@ const PostCard = ({ userName, avatarUrl, userId, imgUrl, likes, isLikeByYou, com
                 <img src={imgUrl} alt='image' className='PostCardImage' />
             </div>
             <div className='PostCardBtns'>
-                <i className={`${isLikeByYou ? 'fas fa-heart' : 'far fa-heart'}`}></i>
+                <i onClick={() => onLikeClick(id)} className={`${isLikeByYou ? 'fas fa-heart' : 'far fa-heart'}`}></i>
                 <i className="fa-regular fa-comment"></i>
             </div>
             <div className='PostCardLikes'>
@@ -45,7 +54,18 @@ const PostCard = ({ userName, avatarUrl, userId, imgUrl, likes, isLikeByYou, com
             <div className='PostCardComments'>
                 {renderComments()}
             </div>
-            <textarea className='PostCardTextarea' />
+            <div className='PostCardTextareaWrapper'>
+                <textarea
+                    placeholder='Оставьте комментарий'
+                    className='PostCardTextarea'
+                    value={comment}
+                    onChange={e => setComment(e.target.value)}
+                />
+                <button 
+                disabled={mutateLoading} 
+                className='PostCardSendButton' 
+                onClick={handleSendCommentClick}>Отправить</button>
+            </div>
         </div>
     )
 }

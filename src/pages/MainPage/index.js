@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import PostCard from "../../components/Card";
 import Layout from "../../components/Layout";
 import { useEffect, useState } from "react";
-import { getPhotos } from "../../redux/actions/photos";
+import { getPhotos, sendComment, toggleLike } from "../../redux/actions/photos";
 import InfiniteScroll from "react-infinite-scroll-component";
 import './style.css'
 import { Bars } from "react-loader-spinner";
@@ -10,6 +10,11 @@ const MainPage = () => {
     const photos = useSelector(state => state.photos.photos)
     const loading = useSelector(state => state.photos.isPhotosLoading)
     const total = useSelector(state => state.photos.totalPhotos)
+    const mutateLoading = useSelector(state => state.photos.isMutateLoading)
+
+
+
+    const autorizedUser = useSelector(state => state.users.autorizedUser)
     const dispatch = useDispatch()
 
     console.log(photos, 'photos');
@@ -23,13 +28,19 @@ const MainPage = () => {
     const nextHandler = () => {
         setPage(page + 1)
     }
+
+    const onLikeClick = (photoId) => {
+        dispatch(toggleLike(autorizedUser.id, photoId))
+    }
+
+    const onCommentSendClick = (photoId, comment) => {
+        dispatch(sendComment(autorizedUser.nickname,photoId, comment))
+    }
+
     return (
-        <Layout nickName='Vitaly' id={1}>
+        <Layout nickName={autorizedUser.nickname} id={autorizedUser.id} avatarUrl={autorizedUser.avatarUrl}>
             <div className="mainPageRoot">
-                {loading ? (<div className="mainLoaderContainer">
-                    <Bars color="#000bff" height={80} width={80} />
-                </div>) :
-                    <InfiniteScroll
+            <InfiniteScroll
                         dataLength={photos.length}
                         next={nextHandler}
                         hasMore={photos.length < total}
@@ -42,17 +53,23 @@ const MainPage = () => {
                         {photos.map(({ author, imgUrl, id, likes, comments }) => (
                             <PostCard
                                 key={id}
+                                id={id}
                                 userName={author.nickname}
                                 imgUrl={imgUrl}
                                 userId={author.id}
                                 likes={likes.length}
-                                isLikeByYou={true}
+                                isLikeByYou={likes.includes(autorizedUser.id)}
                                 comments={comments}
                                 avatarUrl={author.avatarUrl}
-                                className='mainPAgeCard'>
+                                className='mainPAgeCard'
+                                onLikeClick={onLikeClick}
+                                onCommentSendClick={onCommentSendClick}
+                                mutateLoading = {mutateLoading}
+                            >
+
                             </PostCard>
                         ))}
-                    </InfiniteScroll>}
+                    </InfiniteScroll>
             </div>
         </Layout>
 

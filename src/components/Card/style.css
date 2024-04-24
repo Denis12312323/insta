@@ -4,7 +4,7 @@
     width: 600px;
     border: 1px solid #dbdbdb;
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0,0,0 .2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0 .2);
 }
 
 .PostCardHeader {
@@ -28,32 +28,60 @@
     padding: 10px;
     gap: 10px;
 }
-.PostCardBtns i{
+
+.PostCardBtns i {
     cursor: pointer;
 }
+
 .PostCardLikes {
     font-size: 14px;
     font-weight: 600;
     padding: 10px;
 }
 
-.PostCardComments{
+.PostCardComments {
     display: flex;
     flex-direction: column;
     padding: 0 10px 10px 10px;
 }
 
 .PostCardTextarea {
-    border: 0;
+    box-sizing: border-box;
+    border: none;
     background-color: #fff;
     outline: none;
     padding: 10px;
     resize: none;
+    width: 80%;
 }
 
 
-.postCardCommTittle{
+.postCardCommTittle {
     font-size: 14px;
     color: #5f5f5f;
     cursor: pointer;
+}
+
+.PostCardTextareaWrapper {
+    position: relative;
+    background-color: #fff;
+
+}
+
+.PostCardSendButton {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    padding: 5px;
+    border: none;
+    background-color: #2196f3;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+}
+.PostCardSendButton:active {
+    background-color: #1976d2;
+}
+.PostCardSendButton:disabled {
+    background-color: #e3f2fd;
 }

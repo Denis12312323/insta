@@ -7,6 +7,10 @@ export const GET_PHOTOS_STARTED = 'GET_PHOTOS_STARTED'
 export const SET_PHOTOS_TOTAL = 'SET_PHOTOS_TOTAL'
 
 
+export const MUTATE_PHOTO_SUCCESS = 'MUTATE_PHOTO_SUCCESS'
+export const MUTATE_PHOTO_FAILED = 'MUTATE_PHOTO_FAILED'
+export const MUTATE_PHOTO_STARTED = 'MUTATE_PHOTO_STARTED'
+
 export const getPhotosSuccess = (photos) => ({
     type: GET_PHOTOS_SUCCESS,
     payload: photos,
@@ -25,4 +29,19 @@ export const getPhotosStarted = () => ({
 export const setPhotosTotal = (total) => ({
     type: SET_PHOTOS_TOTAL,
     payload: total,
+})
+
+
+
+export const mutatePhotoSuccess = () => ({
+    type: MUTATE_PHOTO_SUCCESS,
+})
+
+export const mutatePhotoFailed = (err) => ({
+    type: MUTATE_PHOTO_FAILED,
+    payload: err,
+})
+
+export const mutatePhotoStarted = () => ({
+    type: MUTATE_PHOTO_STARTED
 })
