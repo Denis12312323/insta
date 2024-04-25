@@ -1,74 +1,39 @@
-import UserBadge from '../UserBadge';
-import Comment from '../Comment';
-import { useState } from "react";
+import { useState } from 'react';
 import cn from 'classnames';
-import { nanoid } from 'nanoid';
-import './style.css';
+import PhotoModal from '../PhotoModal';
+import ImageWithLoader from '../ImageWithLoader';
 
+import './styles.css';
 
-const PostCard = ({ userName, avatarUrl, userId, imgUrl, likes, isLikeByYou, comments, className, onLikeClick, id, onCommentSendClick, mutateLoading, }) => {
-
-    const [isCommentsShown, setIsCommentsShown] = useState(false)
-    const [comment, setComment] = useState('')
-
-
-    const handleSendCommentClick = () => {
-        if (comment) {
-            onCommentSendClick(id, comment)
-            setComment('')
-        }
-    }
-
-    const renderComments = () => {
-        if (comments.length > 2 && !isCommentsShown) {
-            const commentsCopy = [...comments];
-            const commentForRender = commentsCopy.splice(comments.length - 2, 2)
-
-            return (
-                <>
-                    <span className='postCardCommTittle' onClick={() => setIsCommentsShown(true)}>{`Смотреть все комментарии (${comments.length - commentForRender.length})`}</span>
-                    {commentForRender.map((comment) => <Comment {...comment} key={nanoid()} />)}
-                </>
-            )
-        }
-        return comments.map((comment) => <Comment {...comment} />)
-
-
-    }
+const Card = ({ imgUrl, className, likes, comments, isLikedByYou, onLikeClick, onCommentSubmit, id, userData, isMutateLoading }) => {
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [comment, setComment] = useState('');
 
     return (
-        <div className={cn('PostCardRoot', className)}>
-            <div className='PostCardHeader'>
-                <UserBadge nickName={userName} avatarUrl={avatarUrl} id={userId}></UserBadge>
+        <div className={cn("cnCardRoot", className)}>
+            <ImageWithLoader className="cnCardImage" src={imgUrl} alt={imgUrl} />
+            <div className='cnCardHover' />
+            <div className='cnCardIcons'>
+                <i className={cn(`${isLikedByYou ? 'fa' : 'far'} fa-heart`, 'cnCardIcon')} onClick={onLikeClick} />
+                <span className='cnCardNumber cnCardLikes'>{likes}</span>
+                <i className={cn('fas fa-comment', 'cnCardIcon')} onClick={() => setModalVisible(true)} />
+                <span className='cnCardNumber'>{comments.length}</span>
             </div>
-            <div>
-                <img src={imgUrl} alt='image' className='PostCardImage' />
-            </div>
-            <div className='PostCardBtns'>
-                <i onClick={() => onLikeClick(id)} className={`${isLikeByYou ? 'fas fa-heart' : 'far fa-heart'}`}></i>
-                <i className="fa-regular fa-comment"></i>
-            </div>
-            <div className='PostCardLikes'>
-                {`Нравится: ${likes}`}
-            </div>
-            <div className='PostCardComments'>
-                {renderComments()}
-            </div>
-            <div className='PostCardTextareaWrapper'>
-                <textarea
-                    placeholder='Оставьте комментарий'
-                    className='PostCardTextarea'
-                    value={comment}
-                    onChange={e => setComment(e.target.value)}
-                />
-                <button 
-                disabled={mutateLoading} 
-                className='PostCardSendButton' 
-                onClick={handleSendCommentClick}>Отправить</button>
-            </div>
+            <PhotoModal
+                comments={comments}
+                isOpen={isModalVisible}
+                onClose={() => setModalVisible(false)}
+                {...userData}
+                commentValue={comment}
+                setCommentValue={setComment}
+                onCommentSubmit={() => onCommentSubmit(comment)}
+                isCommentLoading={isMutateLoading}
+                imgUrl={imgUrl}
+                isLikedByYou={isLikedByYou}
+                onLikeClick={() => onLikeClick(id)}
+            />
         </div>
-    )
-}
+    );
+};
 
-
-export default PostCard;
+export default Card;

@@ -1,15 +1,20 @@
-.navbarRoot{
+.NavbarRoot {
     height: 60px;
     width: 100%;
     border-bottom: 1px solid #dbdbdb;
     background-color: #fff;
 }
 
-.navbarWrapper{
-    height: 100%;
+.NavbarWrapper {
     display: flex;
     align-items: center;
     justify-content: space-between;
+    height: 100%;
     max-width: 1080px;
-    margin: 0 auto;
+    margin: auto;
+}
+
+.NavbarLink {
+    text-decoration: none;
+    color: #000;
 }

@@ -1,33 +1,47 @@
-.UserBioRoot{
+.cnUserBioRoot {
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.UserBioAvatar{
+.cnUserBioAvatar {
     height: 150px;
     width: 150px;
     border-radius: 50%;
     margin-right: 35px;
 }
-.UserBioInfo{
+
+.cnUserBioInfo {
     display: flex;
     flex-direction: column;
 }
-.UserBioRow{
+
+.cnUserBioRow {
     display: flex;
     align-items: center;
     margin-bottom: 5px;
 }
-.UserBioNick{
+
+.cnUserBioButtonRow {
+    display: flex;
+    align-items: flex-start;
+}
+
+.cnUserEditButton {
+    margin-top: 4px;
+    margin-left: 10px;
+}
+
+.cnUserBioNickname {
     font-weight: 600;
     font-size: 27px;
     margin-right: 10px;
 }
-.UserBioCounter{
+
+.cnUserBioCounter {
     margin-right: 10px;
 }
 
-.UserBioNick{
+.cnUserBioName {
     font-weight: 600;
 }

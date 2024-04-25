@@ -1,37 +1,42 @@
-.CardImage {
-    width: 300px;
-    height: 300px;
-    object-fit: cover;
-}
-
 .cnCardRoot {
     position: relative;
     width: 300px;
     height: 300px;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, .2);
 }
 
-.cnCardRoot:hover .CardHover {
+.cnCardRoot:hover .cnCardHover {
     display: flex;
 }
 
-.cnCardRoot:hover .CardIcons {
+.cnCardRoot:hover .cnCardIcons {
     display: flex;
 }
 
-.CardHover {
+.cnCardImage {
+    width: 300px;
+    height: 300px;
+}
+
+.cnCardImage img {
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.cnCardHover {
     position: absolute;
     top: 0;
     left: 0;
     bottom: 0;
     right: 0;
     display: none;
-    background-color: black;
-    opacity: 0.4;
+    background-color: #000;
+    opacity: .4;
+    border-radius: 10px;
 }
 
-.CardIcons {
+.cnCardIcons {
     display: none;
     align-items: center;
     justify-content: center;
@@ -42,18 +47,19 @@
     right: 0;
 }
 
-.CardIcon {
-    color: white;
+.cnCardIcon {
+    color: #fff;
     font-size: 20px;
     cursor: pointer;
 }
 
-.CardNumber {
+.cnCardNumber {
     margin-left: 5px;
-    color: white;
+    color: #fff;
     font-size: 20px;
-    line-height: 20;
+    line-height: 20px;
 }
-.CardLikes{
+
+.cnCardLikes {
     margin-right: 10px;
 }

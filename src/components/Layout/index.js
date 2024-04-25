@@ -1,16 +1,20 @@
 import Navbar from '../Navbar';
-import './style.css';
+import './styles.css';
 
-
-const Layout = ({ nickName, avatarUrl, id, children }) => {
+const Layout = ({
+    nickName,
+    avatarUrl,
+    id,
+    children
+}) => {
     return (
-        <div className='layoutRoot'>
-            <Navbar nickName={nickName} avatarUrl={avatarUrl} id={id}></Navbar>
-            <div className='layoutBody'>
+        <div className="cnLayoutRoot">
+            <Navbar nickName={nickName} avatarUrl={avatarUrl} id={id} />
+            <div className="cnLayoutBody">
                 {children}
             </div>
         </div>
-    )
-}
+    );
+};
 
-export default Layout
+export default Layout;

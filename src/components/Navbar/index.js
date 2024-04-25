@@ -1,16 +1,19 @@
 import UserBadge from '../UserBadge';
-import './style.css';
+import './styles.css';
 
-const Navbar = ({ nickName, avatarUrl, id }) => {
+const Navbar = ({
+    nickName,
+    avatarUrl,
+    id,
+}) => {
     return (
-        <div className='navbarRoot'>
-            <div className='navbarWrapper'>  
-                <span >Insta</span>
-                <UserBadge nickName={nickName} avatarUrl={avatarUrl} id={id}></UserBadge>
+        <div className="NavbarRoot">
+            <div className='NavbarWrapper'>
+                <a href='/' className='NavbarLink'>INSTA</a>
+                <UserBadge nickName={nickName} avatarUrl={avatarUrl} id={id} />
             </div>
         </div>
-    )
-}
-
+    );
+};
 
 export default Navbar;

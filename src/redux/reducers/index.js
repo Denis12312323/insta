@@ -1,12 +1,10 @@
-import { combineReducers } from "redux"
-import { photosReducer } from "./photos"
-import { userReducer } from "./users"
-import { postsByUserReducer } from "./postsByUser"
-
+import { combineReducers } from "redux";
+import { photosReducer } from "./photos";
+import { postsByUserReducer } from "./postsByUser";
+import { usersReducer } from "./users";
 
 export const rootReducer = combineReducers({
     photos: photosReducer,
-    users: userReducer,
-    postsByUser: postsByUserReducer, 
-})
-
+    users: usersReducer,
+    postsByUser: postsByUserReducer,
+});

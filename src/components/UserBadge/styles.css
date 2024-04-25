@@ -1,25 +1,25 @@
-.userBadgeRoot {
+.cnUserBadgeRoot {
     display: flex;
     cursor: pointer;
 }
 
-.logoAvatar {
-    border-radius: 50%;
-    height: 20px;
+.cnUserBadgeAvatar {
     width: 20px;
+    height: 20px;
     margin-right: 10px;
+    border-radius: 50%;
 }
 
-.userPlaceholder {
-    border-radius: 50%;
-    height: 20px;
+.cnUserBadgePlaceholder {
     width: 20px;
+    height: 20px;
     margin-right: 10px;
+    border-radius: 50%;
     background-color: #efefef;
 }
 
-.userName {
+.cnUserBadgeName {
     font-size: 14px;
     font-weight: 500;
-    color: #000000;
+    color: #000;
 }

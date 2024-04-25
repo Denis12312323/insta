@@ -1,79 +1,77 @@
-import { useDispatch, useSelector } from "react-redux";
-import PostCard from "../../components/Card";
-import Layout from "../../components/Layout";
-import { useEffect, useState } from "react";
-import { getPhotos, sendComment, toggleLike } from "../../redux/actions/photos";
+import { useState } from "react";
+import { useEffect } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
-import './style.css'
 import { Bars } from "react-loader-spinner";
+import { useDispatch, useSelector } from "react-redux";
+import DetailedCard from "../../components/DetailedCard";
+import Layout from "../../components/Layout";
+import { getPhotos, sendComment, toggleLike } from "../../redux/actions/photos";
+import './styles.css';
+
 const MainPage = () => {
-    const photos = useSelector(state => state.photos.photos)
-    const loading = useSelector(state => state.photos.isPhotosLoading)
-    const total = useSelector(state => state.photos.totalPhotos)
-    const mutateLoading = useSelector(state => state.photos.isMutateLoading)
+    const photos = useSelector(state => state.photos.photos);
+    const isLoading = useSelector(state => state.photos.isPhotosLoading);
+    const isError = useSelector(state => state.photos.isPhotoError);
+    const authorizedUser = useSelector(state => state.users.authorizedUser);
+    const total = useSelector(state => state.photos.totalPhotos);
+    const mutateLoading = useSelector(state => state.photos.isMutateLoading);
+    const dispatch = useDispatch();
 
-
-
-    const autorizedUser = useSelector(state => state.users.autorizedUser)
-    const dispatch = useDispatch()
-
-    console.log(photos, 'photos');
-    const [page, setPage] = useState(1)
+    const [page, setPage] = useState(1);
 
     useEffect(() => {
-        dispatch(getPhotos(page))
-    }, [page])
-
+        dispatch(getPhotos(page));
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [page]);
 
     const nextHandler = () => {
-        setPage(page + 1)
-    }
+        setPage(page + 1);
+    };
 
     const onLikeClick = (photoId) => {
-        dispatch(toggleLike(autorizedUser.id, photoId))
-    }
+        dispatch(toggleLike(authorizedUser.id, photoId));
+    };
 
     const onCommentSendClick = (photoId, comment) => {
-        dispatch(sendComment(autorizedUser.nickname,photoId, comment))
+        dispatch(sendComment(authorizedUser.nickname, photoId, comment));
     }
 
     return (
-        <Layout nickName={autorizedUser.nickname} id={autorizedUser.id} avatarUrl={autorizedUser.avatarUrl}>
-            <div className="mainPageRoot">
-            <InfiniteScroll
-                        dataLength={photos.length}
-                        next={nextHandler}
-                        hasMore={photos.length < total}
-                        loader={<div className="mainLoaderContainer">
-                            <Bars color="#000bff" height={15} width={15} />
-                        </div>}
-                        endMessage={
-                            <p className="mainLoaderContainer">Thats all</p>
-                        }>
-                        {photos.map(({ author, imgUrl, id, likes, comments }) => (
-                            <PostCard
-                                key={id}
-                                id={id}
-                                userName={author.nickname}
-                                imgUrl={imgUrl}
-                                userId={author.id}
-                                likes={likes.length}
-                                isLikeByYou={likes.includes(autorizedUser.id)}
-                                comments={comments}
-                                avatarUrl={author.avatarUrl}
-                                className='mainPAgeCard'
-                                onLikeClick={onLikeClick}
-                                onCommentSendClick={onCommentSendClick}
-                                mutateLoading = {mutateLoading}
-                            >
-
-                            </PostCard>
-                        ))}
-                    </InfiniteScroll>
+        <Layout nickName={authorizedUser.nickname} id={authorizedUser.id} avatarUrl={authorizedUser.avatarUrl}>
+            <div className="MainPageRoot">
+                {isLoading && <Bars color="#000BFF" height={15} width={15} />}
+                {!isError && !isLoading && <InfiniteScroll
+                    dataLength={photos.length}
+                    next={nextHandler}
+                    hasMore={photos.length < total}
+                    loader={<div className="cnMainLoaderContainer">
+                        <Bars color="#000BFF" height={15} width={15} />
+                    </div>}
+                    endMessage={
+                        <p className="MainLoaderContainer">Thats all!</p>
+                    }
+                >
+                    {photos.map(({ author, imgUrl, id, likes, comments }) => (
+                        <DetailedCard
+                            key={id}
+                            id={id}
+                            userName={author.nickname}
+                            userId={author.id}
+                            avatarUrl={author.avatarUrl}
+                            imgUrl={imgUrl}
+                            likes={likes.length}
+                            isLikedByYou={likes.includes(authorizedUser.id)}
+                            comments={comments}
+                            className="MainPageCard"
+                            onLikeClick={onLikeClick}
+                            onCommentSendClick={onCommentSendClick}
+                            mutateLoading={mutateLoading}
+                        />
+                    ))}
+                </InfiniteScroll>}
             </div>
         </Layout>
-
-    )
-}
+    );
+};
 
 export default MainPage;

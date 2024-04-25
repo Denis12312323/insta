@@ -1,9 +1,18 @@
 import { makeRequest } from "./makeRequest";
 
-const ULR = '/users'
+const URL = '/users';
 
-export const getUser =(userId,config) =>makeRequest({
+export const getUser = (userId, config) => makeRequest({
     method: 'GET',
-    url: `${ULR}/${userId}`,
-    ...config
-})
+    url: `${URL}/${userId}`,
+    ...config,
+});
+
+export const mutateUser = (config) => {
+    config.url = `${URL}${config.url}`;
+
+    return makeRequest({
+        method: 'PUT',
+        ...config,
+    });
+};

@@ -1,9 +1,0 @@
-.layoutRoot{
-    min-width: 100vh;
-    background-color: #fafafa;
-}
-
-.layoutBody{
-    max-width: 1080px;
-    margin: 0 auto;
-}

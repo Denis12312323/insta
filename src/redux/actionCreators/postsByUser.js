@@ -1,21 +1,18 @@
+export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS';
+export const GET_POSTS__FAILED = 'GET_POSTS__FAILED';
+export const GET_POSTS__STARTED = 'GET_POSTS__STARTED';
 
-
-export const GET_POSTS_SUCCESS = 'GET_POSTS_SUCCESS'
-export const GET_POSTS_FAILED = 'GET_POSTS_FAILED'
-export const GET_POSTS_STARTED = 'GET_POSTS_STARTED'
-
-
-
-export const getPostsSuccess = (posts) => ({
+export const getPostsSuccess = (posts) => {
+    return ({
     type: GET_POSTS_SUCCESS,
     payload: posts,
-})
+})};
 
-export const getPostsFailed = (err) => ({
-    type: GET_POSTS_FAILED,
-    payload: err,
-})
+export const getPostsFailed = (error) => ({
+    type: GET_POSTS__FAILED,
+    payload: error,
+});
 
 export const getPostsStarted = () => ({
-    type: GET_POSTS_STARTED
-})
+    type: GET_POSTS__STARTED,
+});
